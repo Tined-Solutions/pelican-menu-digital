@@ -6,6 +6,8 @@ const ID_SHEET = '1LiGbdm7bjF9qVY8y2kDB30ldVyHtSBgu8QSrosrDmsY'; // TU ID DE SHE
 const CONFIG = {
     menuUrl: `https://opensheet.elk.sh/${ID_SHEET}/menu`,
     instagramUrl: 'https://www.instagram.com/pelicanbar_',
+    // Reemplaza esto con tu link real de Google Reviews:
+    reviewUrl: 'https://www.google.com/search?sca_esv=7c46294b4fa32043&sxsrf=ANbL-n5AsXxB5GAvfLiKewv1hCH7Xfg3hQ:1769804275389&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOVQ1_hk4GoTx9BXeBJPllKjmkB40vlDv5Zjy3AWdtxesO6p0FwyMawYGVoXgFKomAip1jI6P3ISwxESmsRzLoChh1zCG&q=Pelican+Bar+Opiniones&sa=X&ved=2ahUKEwjL_p_ZirSSAxUHqpUCHXXkM-UQ0bkNegQIKRAF&biw=1280&bih=585&dpr=1.5&aic=0#lrd=0x95ae33001acc2041:0x7c85ee44397d2b26,3,,,,', 
     mapsUrl: 'https://goo.gl/maps/TU_LINK_DE_MAPS',
 };
 
@@ -22,8 +24,13 @@ const KEYS = {
     disponibilidadFiesta: 'disponibilidadFiesta' // Nuevo: Switch maestro de fiesta
 };
 
-// Asignar link de instagram al cargar
+// Asignar links al cargar
 document.getElementById('link-instagram').href = CONFIG.instagramUrl;
+// Asignamos el link de reseñas si existe el elemento en el HTML
+const reviewLink = document.getElementById('link-review');
+if (reviewLink) {
+    reviewLink.href = CONFIG.reviewUrl;
+}
 
 // Función Helper para validar booleanos de Google Sheets
 function isTrue(val) {
@@ -188,8 +195,8 @@ function createCardHtml(item, isPartyMode) {
     const borderClass = isDestacado ? 'border-pelican-gold/60 shadow-gold-glow' : 'border-white/5';
 
     // Escapamos comillas para evitar errores
-    const safeTitle = (item[KEYS.producto] || '').replace(/"/g, '&quot;');
-    const safeDesc = (item[KEYS.descripcion] || '').replace(/"/g, '&quot;');
+    const safeTitle = (item[KEYS.producto] || '').replace(/"/g, '"');
+    const safeDesc = (item[KEYS.descripcion] || '').replace(/"/g, '"');
 
     return `
     <article 
